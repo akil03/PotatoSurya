@@ -55,6 +55,7 @@ namespace LCGoogleLogin
 			AndroidJavaObject androidPlugin = AndroidPluginObj (true);
 			if(androidPlugin != null){
 				return androidPlugin.CallStatic<string>(method);
+
 			}
 
 			return null;

@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "926983986077",
+    "firebase_url": "https://potatosuryamusic-1519224169380.firebaseio.com",
+    "project_id": "potatosuryamusic-1519224169380",
+    "storage_bucket": "potatosuryamusic-1519224169380.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926983986077:android:025c7d89055395dd",
+        "android_client_info": {
+          "package_name": "com.potatolive.suryamusic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926983986077-290dod06aeatfgrt1hpj4hulsqqq3nnr.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "926983986077-ksdfj7dfaarpca31dfane3ag439kar3l.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "926983986077-emq5s1gltdkv6gpitklevr6dgja6j5d4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.potatolive.suryamusic",
+            "certificate_hash": "36c89ced4903bf71039c5a0cc9b5d2b8b98108b5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjPx93wh1CqkPcMgQ15UpEYWhEK5-G52w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926983986077-290dod06aeatfgrt1hpj4hulsqqq3nnr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

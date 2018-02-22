@@ -143,6 +143,7 @@ public class LCGoogleLoginBridge : MonoBehaviour {
 
 		if (Application.platform == RuntimePlatform.Android) {
 			return LCGoogleLoginAndroid.CallAndroidStringMethod (LCGoogleLoginAndroid.kStrUserActualID);
+
 		} else if (Application.platform == RuntimePlatform.IPhonePlayer) {
 			return LCGoogleLoginiOS.userActualID ();
 		} else {
@@ -160,11 +161,14 @@ public class LCGoogleLoginBridge : MonoBehaviour {
 
 		if (Application.platform == RuntimePlatform.Android) {
 			return LCGoogleLoginAndroid.CallAndroidStringMethod (LCGoogleLoginAndroid.kStrUserEmail);
+
 		} else if (Application.platform == RuntimePlatform.IPhonePlayer) {
 			return LCGoogleLoginiOS.userEmail ();
 		} else {
 			if (debugLogs) {
+				
 				Debug.Log ("LCGoogleLogin: GSIPhotoUrl: Unsupported platform");
+
 			}
 		}
 
