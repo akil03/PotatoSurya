@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour {
 
 		ClosePages ();
 		Page [pageNo].gameObject.SetActive (true);
-		Page [pageNo].Show (true);
+		Page [pageNo].Show (false);
 
 	}
 
