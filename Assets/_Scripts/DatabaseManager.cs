@@ -15,8 +15,7 @@ public class DatabaseManager : MonoBehaviour {
 	string JsonValue;
 	public AppData _AppData;
 	public GameObject SongTemplate_prefab;
-	public List<Song> ListSong;
-	public Song songDetails;
+	public List<ProgDate> ListDate;
 
 	public static DatabaseManager instance = null;
 
@@ -64,6 +63,7 @@ public class DatabaseManager : MonoBehaviour {
 		for (int i = 0; i < Programmes.Count; i++) {
 			Programme _Programme = new Programme ();
 			_Programme.Name = Programmes.ElementAt (i).Key.ToString ();
+
 			var ProgrammeDates = JsonConvert.DeserializeObject<Dictionary<string, object>> (Programmes.ElementAt(i).Value.ToString());
 			for (int j = 0; j < ProgrammeDates.Count; j++) {
 				ProgDate _ProgrammeDate = new ProgDate ();
@@ -87,48 +87,52 @@ public class DatabaseManager : MonoBehaviour {
 				}
 				_Programme.Datelist.Add (_ProgrammeDate);
 			}
+			//CreateSongs (ListDate);
 			_AppData.ProgrammeList.Add (_Programme);
 		}
 
 	}
 
-	public void CreateSongs(List<Song> ListSong, GameObject template){
-
-		foreach (Song sg in ListSong) {
-			GameObject _song = Instantiate (SongTemplate_prefab);
-			_song.transform.SetParent (template.transform);
-		}
-
-	}
-
-
-
-//	public void CreateObjects(List<TournamentData> TournamentList,GameObject MatchContent){
-//		ClearListing (MatchContent.transform);
+//	public int s;
+//	public void CreateSongs(List<Song> ListSong, GameObject template){
+//		ClearListing (template.transform);
 //
-//		foreach (TournamentData TD in TournamentList) {
-//			foreach (MatchData _MatchData in TD.Tournaments) {
-//				GameObject GO = Instantiate (MatchPrefab);
-//				GO.transform.SetParent (MatchContent.transform);
-//				GO.GetComponent <MatchItem> ().ItemDetails = _MatchData;
-//				GO.GetComponent <MatchItem> ().TournamentName = TD.TournamentName;
-//				if(i==0)
-//					GO.GetComponent <MatchItem> ().isSelected = true;
-//				GO.GetComponent <MatchItem> ().AssignValues ();
-//				i++;
-//				GO.transform.localScale = Vector3.one;
-//				MatchContent.GetComponent <RectTransform> ().sizeDelta = new Vector2 (563, MatchContent.GetComponent <RectTransform> ().rect.height + 350);
-//			}
+//		foreach (Song sg in ListSong) {
+//			GameObject _song = Instantiate (SongTemplate_prefab);
+//			_song.transform.SetParent (template.transform);
+//			_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
+//			_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
+//			_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
+//			_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
+//			_song.GetComponent<SongValues> ().AssignValues ();
+//
 //		}
+//
 //	}
-
+//
 //	public void ClearListing(Transform Content){
-//		i = 0;
+//		s = 0;
 //
 //		foreach (Transform Child in Content)
 //			Destroy (Child.gameObject);
-//		
+//
 //	}
+
+	public GameObject _song;
+	public void CreateSongs(List<ProgDate> ListDate){
+		foreach (ProgDate PD in ListDate) {
+			foreach(ProgTime PT in PD.Timelist){
+				foreach (Song sg in PT.Songlist) {
+					_song = Instantiate (SongTemplate_prefab);
+					_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
+					_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
+					_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
+					_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
+					_song.GetComponent<SongValues> ().AssignValues ();
+				}
+			}
+		}
+	}
 
 
 

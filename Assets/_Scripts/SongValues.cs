@@ -10,7 +10,7 @@ public class SongValues : MonoBehaviour {
 	public Text AlbumText;
 	public Text ArtistText;
 	public Text URLText;
-
+	public DatabaseManager.Song songDetail;
 
 	// Use this for initialization
 	void Start () {
@@ -23,9 +23,9 @@ public class SongValues : MonoBehaviour {
 	}
 
 	public void AssignValues(){
-		TitleText.text = DatabaseManager.instance.songDetails.Title.ToString ();
-		AlbumText.text = DatabaseManager.instance.songDetails.Album.ToString ();
-		ArtistText.text = DatabaseManager.instance.songDetails.Artist.ToString ();
-		URLText.text = DatabaseManager.instance.songDetails.ImgURL.ToString ();
+		TitleText.text = songDetail.Title;
+		AlbumText.text = songDetail.Album;
+		ArtistText.text = songDetail.Artist;
+		URLText.text = songDetail.ImgURL;
 	}
 }
