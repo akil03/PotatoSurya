@@ -1,21 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
+using Newtonsoft.Json;
 
 
 public class DatabaseManager : MonoBehaviour {
 
 	string JsonValue;
+	public AppData _AppData;
+	public GameObject SongTemplate_prefab;
+	public List<Song> ListSong;
+	public Song songDetails;
 
+	public static DatabaseManager instance = null;
 
-	// Use this for initialization
+	void Awake(){
+		instance = this;	
+	}
+
 	void Start () {
-		
+		_AppData = new AppData ();
+
 		FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://potatosuryamusic-1519224169380.firebaseio.com/");
 		FirebaseApp.DefaultInstance.SetEditorP12FileName("potatosuryamusicapp-e6866a9d36d0.p12");
 		FirebaseApp.DefaultInstance.SetEditorServiceAccountEmail("unityeditortest@potatosuryamusic-1519224169380.iam.gserviceaccount.com");
@@ -23,8 +34,7 @@ public class DatabaseManager : MonoBehaviour {
 
 		InitializeFirebase ();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		
 	}
@@ -32,47 +42,125 @@ public class DatabaseManager : MonoBehaviour {
 	public void InitializeFirebase(){
 		DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
 
-		FirebaseDatabase.DefaultInstance.GetReference ("RetrieveSide").GetValueAsync().ContinueWith(task =>{
+		FirebaseDatabase.DefaultInstance.GetReference ("AppData").GetValueAsync().ContinueWith(task =>{
 			if(task.IsFaulted){
 				Debug.Log("Task failed");
 			}else if(task.IsCompleted){
 				DataSnapshot snapshot = task.Result;
 				JsonValue = snapshot.GetRawJsonValue ();
 				print(JsonValue);
-				RetrieveSide retreiveValue = JsonUtility.FromJson<RetrieveSide>(JsonValue);
+				SaveAppData(JsonValue);
+				//_AppData = JsonUtility.FromJson<AppData>(JsonValue);
 
 			}
 		});
 	}
 
-	public void SaveDateData(string Jsonvalue){
-		//JsonUtility.ToJson<RetrieveSide> (JsonValue);
+
+
+
+	public void SaveAppData(string JsonValue){
+		var Programmes = JsonConvert.DeserializeObject<Dictionary<string, object>> (JsonValue);
+		for (int i = 0; i < Programmes.Count; i++) {
+			Programme _Programme = new Programme ();
+			_Programme.Name = Programmes.ElementAt (i).Key.ToString ();
+			var ProgrammeDates = JsonConvert.DeserializeObject<Dictionary<string, object>> (Programmes.ElementAt(i).Value.ToString());
+			for (int j = 0; j < ProgrammeDates.Count; j++) {
+				ProgDate _ProgrammeDate = new ProgDate ();
+				_ProgrammeDate.Date = ProgrammeDates.ElementAt (j).Key.ToString ();
+				var ProgrammeTimes = JsonConvert.DeserializeObject<Dictionary<string, object>> (ProgrammeDates.ElementAt(j).Value.ToString());
+				for (int k = 0; k < ProgrammeTimes.Count; k++) {
+					ProgTime _ProgrammeTime = new ProgTime ();
+					_ProgrammeTime.Time = ProgrammeTimes.ElementAt (k).Key.ToString ();
+					var SongList = JsonConvert.DeserializeObject<Dictionary<string, object>> (ProgrammeTimes.ElementAt(k).Value.ToString());
+					for (int l = 0; l< SongList.Count; l++) {
+						Song _Song = new Song ();
+						var songData = JsonConvert.DeserializeObject<Dictionary<string,string>> (SongList.ElementAt(l).Value.ToString()); 
+
+						_Song.Title = songData.Where (a=>a.Key.Contains("Title")).First().Value.ToString();
+						_Song.Album = songData.Where (a=>a.Key.Contains("Album")).First().Value.ToString();
+						_Song.Artist = songData.Where (a=>a.Key.Contains("Artist")).First().Value.ToString();
+						_Song.ImgURL = songData.Where (a=>a.Key.Contains("URL")).First().Value.ToString();
+						_ProgrammeTime.Songlist.Add (_Song);
+					}
+					_ProgrammeDate.Timelist.Add(_ProgrammeTime);
+				}
+				_Programme.Datelist.Add (_ProgrammeDate);
+			}
+			_AppData.ProgrammeList.Add (_Programme);
+		}
+
+	}
+
+	public void CreateSongs(List<Song> ListSong, GameObject template){
+
+		foreach (Song sg in ListSong) {
+			GameObject _song = Instantiate (SongTemplate_prefab);
+			_song.transform.SetParent (template.transform);
+		}
+
 	}
 
 
-	[System.Serializable]
-	public class RetrieveSide {
-		public string Prog_name;
-		public List<Prog_Date> Datelist = new List<Prog_Date> ();
 
-//		public static RetrieveSide CreateFromJSON(string jsonString){
-//			return JsonUtility.FromJson<RetrieveSide> (jsonString);
+//	public void CreateObjects(List<TournamentData> TournamentList,GameObject MatchContent){
+//		ClearListing (MatchContent.transform);
+//
+//		foreach (TournamentData TD in TournamentList) {
+//			foreach (MatchData _MatchData in TD.Tournaments) {
+//				GameObject GO = Instantiate (MatchPrefab);
+//				GO.transform.SetParent (MatchContent.transform);
+//				GO.GetComponent <MatchItem> ().ItemDetails = _MatchData;
+//				GO.GetComponent <MatchItem> ().TournamentName = TD.TournamentName;
+//				if(i==0)
+//					GO.GetComponent <MatchItem> ().isSelected = true;
+//				GO.GetComponent <MatchItem> ().AssignValues ();
+//				i++;
+//				GO.transform.localScale = Vector3.one;
+//				MatchContent.GetComponent <RectTransform> ().sizeDelta = new Vector2 (563, MatchContent.GetComponent <RectTransform> ().rect.height + 350);
+//			}
 //		}
+//	}
+
+//	public void ClearListing(Transform Content){
+//		i = 0;
+//
+//		foreach (Transform Child in Content)
+//			Destroy (Child.gameObject);
+//		
+//	}
+
+
+
+	[System.Serializable]
+	public class AppData {
+		public List<Programme> ProgrammeList = new List<Programme>();
+
+
 	}
 
 	[System.Serializable]
-	public class Prog_Date{
-		public List<Prog_Time> Timelist = new List<Prog_Time> ();
+	public class Programme{
+		public string Name;
+		public List<ProgDate> Datelist = new List<ProgDate> ();
+	}
+
+
+	[System.Serializable]
+	public class ProgDate{
+		public string Date;
+		public List<ProgTime> Timelist = new List<ProgTime> ();
 	}
 
 	[System.Serializable]
-	public class Prog_Time{
-		public List<Songs> Songlist = new List<Songs> ();
+	public class ProgTime{
+		public string Time;
+		public List<Song> Songlist = new List<Song> ();
 	}
 
 	[System.Serializable]
-	public class Songs{
-		public string songName;
+	public class Song{
+		public string Title,Artist,Album,ImgURL;
 	}
 
 }

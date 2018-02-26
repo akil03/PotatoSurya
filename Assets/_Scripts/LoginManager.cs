@@ -12,7 +12,7 @@ public class LoginManager : MonoBehaviour {
 	public Text infoText1, infoText2;
 
 	public static LoginManager instance;
-	// Use this for initialization
+
 	void Awake () {
 		instance = this;
 		InitializeFirebase ();
@@ -21,7 +21,6 @@ public class LoginManager : MonoBehaviour {
 	}
 	
 	public void ManualInit(){
-
 
 		if (!Application.isEditor) {
 			LCGoogleLoginBridge.ChangeLoggingLevel (true);
