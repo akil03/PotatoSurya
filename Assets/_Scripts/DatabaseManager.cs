@@ -15,7 +15,7 @@ public class DatabaseManager : MonoBehaviour {
 	string JsonValue;
 	public AppData _AppData;
 	public GameObject SongTemplate_prefab;
-	public List<ProgDate> ListDate;
+	public List<Song> ListSong;
 
 	public static DatabaseManager instance = null;
 
@@ -83,6 +83,7 @@ public class DatabaseManager : MonoBehaviour {
 						_Song.ImgURL = songData.Where (a=>a.Key.Contains("URL")).First().Value.ToString();
 						_ProgrammeTime.Songlist.Add (_Song);
 					}
+					CreateSongs (ListSong, SongTemplate_prefab);
 					_ProgrammeDate.Timelist.Add(_ProgrammeTime);
 				}
 				_Programme.Datelist.Add (_ProgrammeDate);
@@ -93,46 +94,38 @@ public class DatabaseManager : MonoBehaviour {
 
 	}
 
-//	public int s;
-//	public void CreateSongs(List<Song> ListSong, GameObject template){
-//		ClearListing (template.transform);
-//
-//		foreach (Song sg in ListSong) {
-//			GameObject _song = Instantiate (SongTemplate_prefab);
-//			_song.transform.SetParent (template.transform);
-//			_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
-//			_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
-//			_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
-//			_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
-//			_song.GetComponent<SongValues> ().AssignValues ();
-//
-//		}
-//
-//	}
-//
-//	public void ClearListing(Transform Content){
-//		s = 0;
-//
-//		foreach (Transform Child in Content)
-//			Destroy (Child.gameObject);
-//
-//	}
 
-	public GameObject _song;
-	public void CreateSongs(List<ProgDate> ListDate){
-		foreach (ProgDate PD in ListDate) {
-			foreach(ProgTime PT in PD.Timelist){
-				foreach (Song sg in PT.Songlist) {
-					_song = Instantiate (SongTemplate_prefab);
-					_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
-					_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
-					_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
-					_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
-					_song.GetComponent<SongValues> ().AssignValues ();
-				}
-			}
+	public void CreateSongs(List<Song> ListSg, GameObject template){
+
+		foreach (Song sg in ListSg) {
+			GameObject _song = Instantiate (template);
+			//_song.transform.SetParent (template.transform);
+			_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
+			_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
+			_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
+			_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
+			//_song.GetComponent<SongValues> ().AssignValues ();
+
 		}
+
 	}
+
+
+//	public GameObject _song;
+//	public void CreateSongs(List<ProgDate> ListDate){
+//		foreach (ProgDate PD in ListDate) {
+//			foreach(ProgTime PT in PD.Timelist){
+//				foreach (Song sg in PT.Songlist) {
+//					_song = Instantiate (SongTemplate_prefab);
+//					_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
+//					_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
+//					_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
+//					_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
+//					_song.GetComponent<SongValues> ().AssignValues ();
+//				}
+//			}
+//		}
+//	}
 
 
 
