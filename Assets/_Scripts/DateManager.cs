@@ -5,11 +5,17 @@ using UnityEngine.UI;
 
 public class DateManager : MonoBehaviour {
 
-	public List<Text> DateText;
+	public List<DateItem> DateText;
+
+	public static DateManager instance;
 	// Use this for initialization
+
+	void Awake(){
+		instance = this;
+	}
 	void Start () {
-		DateText [0].text = System.DateTime.Now.ToString ("M");
-		DisplayDate ();
+		//DateText [0].text = System.DateTime.Now.ToString ("M");
+		//DisplayDate ();
 	}
 	
 	// Update is called once per frame
@@ -17,16 +23,17 @@ public class DateManager : MonoBehaviour {
 		
 	}
 
-	public void DisplayDate() {
-		int daycount = 1;
-		for(int i=1; i<DateText.Count; i++){
-			
-			DateText [i].text = System.DateTime.Now.ToString ("M");
-			DateText [i].text = System.DateTime.Now.AddDays (daycount).ToString ("M");
-			daycount += 1;
-			}
-				
-			//var future : Date = date.AddDays(6);
-			//currentDate.text = System.DateTime.Today.AddDays(6);
-	}
+//	public void DisplayDate() {
+//		int daycount = 1;
+//		for(int i=1; i<DateText.Count; i++){
+//			
+//			DateText [i].text = System.DateTime.Now.ToString ("M");
+//			DateText [i].text = System.DateTime.Now.AddDays (daycount).ToString ("M");
+//			daycount += 1;
+//			}
+//				
+//			//var future : Date = date.AddDays(6);
+//			//currentDate.text = System.DateTime.Today.AddDays(6);
+//	}
+
 }

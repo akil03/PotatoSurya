@@ -82,33 +82,38 @@ public class DatabaseManager : MonoBehaviour {
 						_Song.Artist = songData.Where (a=>a.Key.Contains("Artist")).First().Value.ToString();
 						_Song.ImgURL = songData.Where (a=>a.Key.Contains("URL")).First().Value.ToString();
 						_ProgrammeTime.Songlist.Add (_Song);
+//						SongManager.instance.SongText [l].songDetail = _Song;
+//						SongManager.instance.SongText [l].AssignValues ();
 					}
-					CreateSongs (ListSong, SongTemplate_prefab);
 					_ProgrammeDate.Timelist.Add(_ProgrammeTime);
+					TimeManager.instance.TimeText [k].programTime = _ProgrammeTime;
+					TimeManager.instance.TimeText [k].Assign ();
 				}
 				_Programme.Datelist.Add (_ProgrammeDate);
+				DateManager.instance.DateText [j].programDate = _ProgrammeDate;
+				print (DateManager.instance.DateText [j].programDate);
+				DateManager.instance.DateText [j].Assign ();
 			}
-			//CreateSongs (ListDate);
 			_AppData.ProgrammeList.Add (_Programme);
 		}
 
 	}
 
 
-	public void CreateSongs(List<Song> ListSg, GameObject template){
-
-		foreach (Song sg in ListSg) {
-			GameObject _song = Instantiate (template);
-			//_song.transform.SetParent (template.transform);
-			_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
-			_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
-			_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
-			_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
-			//_song.GetComponent<SongValues> ().AssignValues ();
-
-		}
-
-	}
+//	public void CreateSongs(List<Song> ListSg, GameObject template){
+//
+//		foreach (Song sg in ListSg) {
+//			GameObject _song = Instantiate (template);
+//			//_song.transform.SetParent (template.transform);
+//			_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
+//			_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
+//			_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
+//			_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
+//			//_song.GetComponent<SongValues> ().AssignValues ();
+//
+//		}
+//
+//	}
 
 
 //	public GameObject _song;
@@ -127,6 +132,9 @@ public class DatabaseManager : MonoBehaviour {
 //		}
 //	}
 
+	public void CreateSongs(){
+		
+	}
 
 
 	[System.Serializable]

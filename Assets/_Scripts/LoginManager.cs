@@ -9,7 +9,7 @@ using Firebase.Auth;
 public class LoginManager : MonoBehaviour {
 	FirebaseAuth auth;
 	FirebaseUser user;
-	public Text infoText1, infoText2;
+	public Text infoText1;
 
 	public static LoginManager instance;
 
@@ -75,7 +75,7 @@ public class LoginManager : MonoBehaviour {
 			user = task.Result;
 			Debug.LogFormat("Firebase user created successfully: {0} ({1})",
 				user.DisplayName, user.UserId);
-			infoText2.text = "Firebase user created successfully: {0} ({1})".ToString();
+			infoText1.text = "Firebase user created successfully: {0} ({1})".ToString();
 		});
 
 	}
@@ -97,7 +97,7 @@ public class LoginManager : MonoBehaviour {
 			user = task.Result;
 			Debug.LogFormat("User signed in successfully: {0} ({1})",
 				user.DisplayName, user.UserId);
-			infoText2.text = "User signed in successfully: {0} ({1})".ToString();
+			infoText1.text = "User signed in successfully: {0} ({1})".ToString();
 		});
 
 	}
