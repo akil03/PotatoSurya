@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour {
 
-	public List<TimeItem> TimeText;
+	public List<TimeItem> TimeInfo;
 
 	public static TimeManager instance;
 	// Use this for initialization

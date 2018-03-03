@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DateItem : MonoBehaviour {
 
 	public DatabaseManager.ProgDate programDate;
-	public Text Dateinfo;
+	public Text DateText;
 
 
 	// Use this for initialization
@@ -20,7 +20,12 @@ public class DateItem : MonoBehaviour {
 	}
 
 	public void Assign(){
-		Dateinfo.text = programDate.Date;
+		DateText.text = programDate.Date;
+	}
+
+	public void SetDate(){
+
+		SongManager.instance.selectedDate = programDate;
 	}
 
 }

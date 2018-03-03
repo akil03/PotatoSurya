@@ -225,7 +225,7 @@ MonoBehaviour:
   programTime:
     Time: 
     Songlist: []
-  Timeinfo: {fileID: 114510441332232258}
+  TimeText: {fileID: 114510441332232258}
 --- !u!222 &222372553205557520
 CanvasRenderer:
   m_ObjectHideFlags: 1

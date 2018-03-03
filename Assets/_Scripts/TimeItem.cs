@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TimeItem : MonoBehaviour {
 
 	public DatabaseManager.ProgTime programTime;
-	public Text Timeinfo;
+	public Text TimeText;
 	// Use this for initialization
 	void Start () {
 		
@@ -18,6 +18,13 @@ public class TimeItem : MonoBehaviour {
 	}
 
 	public void Assign(){
-		Timeinfo.text = programTime.Time;
+		TimeText.text = programTime.Time;
+	}
+
+	public void SetTime(int t){
+		if (t == 0)
+			SongManager.instance.isAM = true;
+		else
+			SongManager.instance.isAM = false;
 	}
 }

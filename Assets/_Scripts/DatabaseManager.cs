@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase;
 using Firebase.Database;
+using Firebase.Storage;
 using Firebase.Unity.Editor;
 using Newtonsoft.Json;
 
@@ -15,7 +16,6 @@ public class DatabaseManager : MonoBehaviour {
 	string JsonValue;
 	public AppData _AppData;
 	public GameObject SongTemplate_prefab;
-	public List<Song> ListSong;
 
 	public static DatabaseManager instance = null;
 
@@ -32,6 +32,7 @@ public class DatabaseManager : MonoBehaviour {
 		FirebaseApp.DefaultInstance.SetEditorP12Password("notasecret");
 
 		InitializeFirebase ();
+
 	}
 
 	void Update () {
@@ -77,28 +78,40 @@ public class DatabaseManager : MonoBehaviour {
 						Song _Song = new Song ();
 						var songData = JsonConvert.DeserializeObject<Dictionary<string,string>> (SongList.ElementAt(l).Value.ToString()); 
 
-						_Song.Title = songData.Where (a=>a.Key.Contains("Title")).First().Value.ToString();
-						_Song.Album = songData.Where (a=>a.Key.Contains("Album")).First().Value.ToString();
-						_Song.Artist = songData.Where (a=>a.Key.Contains("Artist")).First().Value.ToString();
-						_Song.ImgURL = songData.Where (a=>a.Key.Contains("URL")).First().Value.ToString();
+						_Song.Title = songData.Where (a=>a.Key.Contains("SongName")).First().Value.ToString();
+						_Song.Album = songData.Where (a=>a.Key.Contains("Movie")).First().Value.ToString();
+						_Song.Artist = songData.Where (a=>a.Key.Contains("Singers")).First().Value.ToString();
+						_Song.Year = songData.Where (a=>a.Key.Contains("Year")).First().Value.ToString();
+						_Song.MusicDir = songData.Where (a=>a.Key.Contains("MusicDirector")).First().Value.ToString();
+						_Song.Lyricist = songData.Where (a=>a.Key.Contains("Lyricist")).First().Value.ToString();
 						_ProgrammeTime.Songlist.Add (_Song);
-//						SongManager.instance.SongText [l].songDetail = _Song;
-//						SongManager.instance.SongText [l].AssignValues ();
+
+//						Instantiate (SongTemplate_prefab, song_Manager);
+
+//						SongManager.instance.SongInfo [l].songDetail = _Song;
+
+//						SongManager.instance.SongInfo [l].songDetail.Album = _Song.Album;
+//						SongManager.instance.SongInfo [l].songDetail.Artist = _Song.Artist;
+//						SongManager.instance.SongInfo [l].songDetail.ImgURL = _Song.ImgURL;
+
+//						if (TimeToggle [0].isOn && _ProgrammeTime.Time == "AM")
+//							SongManager.instance.SongInfo [l].AssignValuesAM ();
+//						else if(TimeToggle [1].isOn && _ProgrammeTime.Time == "PM")
+//							SongManager.instance.SongInfo [l].AssignValuesPM ();
 					}
 					_ProgrammeDate.Timelist.Add(_ProgrammeTime);
-					TimeManager.instance.TimeText [k].programTime = _ProgrammeTime;
-					TimeManager.instance.TimeText [k].Assign ();
+					TimeManager.instance.TimeInfo [k].programTime = _ProgrammeTime;
+					TimeManager.instance.TimeInfo [k].Assign ();
 				}
 				_Programme.Datelist.Add (_ProgrammeDate);
-				DateManager.instance.DateText [j].programDate = _ProgrammeDate;
-				print (DateManager.instance.DateText [j].programDate);
-				DateManager.instance.DateText [j].Assign ();
+				DateManager.instance.DateInfo [j].programDate = _ProgrammeDate;
+				print (DateManager.instance.DateInfo [j].programDate);
+				DateManager.instance.DateInfo [j].Assign ();
 			}
 			_AppData.ProgrammeList.Add (_Programme);
 		}
 
 	}
-
 
 //	public void CreateSongs(List<Song> ListSg, GameObject template){
 //
@@ -114,27 +127,6 @@ public class DatabaseManager : MonoBehaviour {
 //		}
 //
 //	}
-
-
-//	public GameObject _song;
-//	public void CreateSongs(List<ProgDate> ListDate){
-//		foreach (ProgDate PD in ListDate) {
-//			foreach(ProgTime PT in PD.Timelist){
-//				foreach (Song sg in PT.Songlist) {
-//					_song = Instantiate (SongTemplate_prefab);
-//					_song.GetComponent<SongValues> ().TitleText.text = sg.Title;
-//					_song.GetComponent<SongValues> ().AlbumText.text = sg.Album;
-//					_song.GetComponent<SongValues> ().ArtistText.text = sg.Artist;
-//					_song.GetComponent<SongValues> ().URLText.text = sg.ImgURL;
-//					_song.GetComponent<SongValues> ().AssignValues ();
-//				}
-//			}
-//		}
-//	}
-
-	public void CreateSongs(){
-		
-	}
 
 
 	[System.Serializable]
@@ -165,7 +157,7 @@ public class DatabaseManager : MonoBehaviour {
 
 	[System.Serializable]
 	public class Song{
-		public string Title,Artist,Album,ImgURL;
+		public string Title,Album,Year,Artist,MusicDir,Lyricist;
 	}
-
+		
 }

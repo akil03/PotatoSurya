@@ -95,7 +95,7 @@ public class IVPickerExample : MonoBehaviour {
 		}
 
 		if (texture != null){
-			
+			//texture.GetRawTextureData ();
 			GUI.DrawTexture(new Rect(20,50,Screen.width - 40,Screen.height - 60), texture, ScaleMode.ScaleToFit, true);
 		}
 	}

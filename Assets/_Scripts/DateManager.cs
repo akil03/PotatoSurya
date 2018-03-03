@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DateManager : MonoBehaviour {
 
-	public List<DateItem> DateText;
+	public List<DateItem> DateInfo;
 
 	public static DateManager instance;
 	// Use this for initialization

@@ -26,6 +26,6 @@ public class SongValues : MonoBehaviour {
 		TitleText.text = songDetail.Title;
 		AlbumText.text = songDetail.Album;
 		ArtistText.text = songDetail.Artist;
-		URLText.text = songDetail.ImgURL;
+
 	}
 }
