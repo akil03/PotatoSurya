@@ -10,23 +10,23 @@ using Newtonsoft.Json;
 public class StorageManager : MonoBehaviour {
 
 	public AppRequest _AppRequest;
-	public Text emailText;
+	public string emailText;
 	public Text messageText;
 	public Text locationText;
 
 	void Start () {
-		
+		_AppRequest = new AppRequest ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		_AppRequest = new AppRequest ();
+		
 	}
 
 	public void SubmitData(){
 		DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
 
-		reference.Child (emailText.text).Child (LCGoogleLoginBridge.GSIEmail())
+		reference.Child (emailText).Child (LCGoogleLoginBridge.GSIEmail())
 			.SetRawJsonValueAsync (JsonConvert.SerializeObject (_AppRequest));
 		reference.Child (messageText.text).Child (_AppRequest.message)
 			.SetRawJsonValueAsync (JsonConvert.SerializeObject (_AppRequest));

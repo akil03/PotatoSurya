@@ -208,7 +208,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2017
+  m_Text: 1996
 --- !u!114 &114338854288448346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -241,7 +241,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: _md
+  m_Text: ARR
 --- !u!114 &114392024969487556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: _movie
+  m_Text: Muthu
 --- !u!114 &114405013062576316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -293,12 +293,12 @@ MonoBehaviour:
   MusicDirText: {fileID: 114338854288448346}
   LyricistText: {fileID: 114644879936600044}
   songDetail:
-    Title: _song
-    Album: _movie
-    Year: 2017
-    Artist: _sgs
-    MusicDir: _md
-    Lyricist: _ly
+    Title: 
+    Album: 
+    Year: 
+    Artist: 
+    MusicDir: 
+    Lyricist: 
 --- !u!114 &114644879936600044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -331,7 +331,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: _ly
+  m_Text: Lyr
 --- !u!114 &114728543343110850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -454,7 +454,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: _song
+  m_Text: Thailand
 --- !u!114 &114950775198661080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -487,7 +487,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: _sgs
+  m_Text: Mano
 --- !u!222 &222111759472061206
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -684,6 +684,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -112.5}
-  m_SizeDelta: {x: 0, y: 225}
+  m_AnchoredPosition: {x: 0, y: -117}
+  m_SizeDelta: {x: -20, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
